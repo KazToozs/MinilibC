@@ -7,7 +7,7 @@
 /* extern void	*my_memcpy(void *dest, const void *src, size_t n); */
 /* extern void	*my_memccpy(void *dest, const void *src, int c, size_t n); */
 /* int		my_strcmp(const char *s1, const char *s2); */
-extern void	*my_memmove(void *dest, const void *src, size_t n);
+/* extern void	*my_memmove(void *dest, const void *src, size_t n); */
 /* extern int	my_strncmp(const char *s1, const char *s2, size_t n); */
 /* extern int	my_strcasecmp(const char *s1, const char *s2); */
 /* extern int	my_strncasecmp(const char *s1, const char *s2, size_t n); */
@@ -95,42 +95,47 @@ extern void	*my_memmove(void *dest, const void *src, size_t n);
 /*     write(1, str, 1); */
 /* } */
 
-void		test_case2(char *str, size_t n, int offset,
-			   void *(func)(void *, const void *, size_t))
-{
-  char		*mall;
-  char		*src;
-  char		*dest;
+/* void		test_case2(char *str, size_t n, int offset, */
+/* 			   void *(func)(void *, const void *, size_t)) */
+/* { */
+/*   char		*mall; */
+/*   char		*src; */
+/*   char		*dest; */
 
-  mall = malloc(100);
-  src = mall + 50;
-  dest = src + offset;
-  strcpy(src, str);
+/*   mall = malloc(100); */
+/*   src = mall + 50; */
+/*   dest = src + offset; */
+/*   strcpy(src, str); */
 
-  printf("%s\n", func(dest, src, n));
-  free(mall);
-}
+/*   printf("%s\n", func(dest, src, n)); */
+/*   free(mall); */
+/* } */
 
 
+
+/* int		main(int ac, char **av) */
+/* { */
+/*   int n = atoi(av[2]); */
+
+/*   printf("----testcase2----\n\n"); */
+
+/*   printf("----DEST - SRC : normal ----\n"); */
+/*   test_case2(av[1], (size_t)n, 0 - (n - 1), memmove); */
+/*   test_case2(av[1], (size_t)n, 0 - (n - 1), my_memmove); */
+/*   printf("----DEST - SRC : normal ----\n"); */
+/*   test_case2(av[1], (size_t)n, 0 - (n + 1), memmove); */
+/*   test_case2(av[1], (size_t)n, 0 - (n + 1), my_memmove); */
+/*   printf("----SRC - DEST : special ----\n"); */
+/*   test_case2(av[1], (size_t)n, 0 + (n - 1), memmove); */
+/*   test_case2(av[1], (size_t)n, 0 + (n - 1), my_memmove); */
+/*   printf("----SRC - DEST : normal ----\n"); */
+/*   test_case2(av[1], (size_t)n, 0 + (n + 1), memmove); */
+/*   test_case2(av[1], (size_t)n, 0 + (n + 1), my_memmove); */
+
+/*   return (0); */
+/* } */
 
 int		main(int ac, char **av)
 {
-  int n = atoi(av[2]);
-
-  printf("----testcase2----\n\n");
-
-  printf("----DEST - SRC : normal ----\n");
-  test_case2(av[1], (size_t)n, 0 - (n - 1), memmove);
-  test_case2(av[1], (size_t)n, 0 - (n - 1), my_memmove);
-  printf("----DEST - SRC : normal ----\n");
-  test_case2(av[1], (size_t)n, 0 - (n + 1), memmove);
-  test_case2(av[1], (size_t)n, 0 - (n + 1), my_memmove);
-  printf("----SRC - DEST : special ----\n");
-  test_case2(av[1], (size_t)n, 0 + (n - 1), memmove);
-  test_case2(av[1], (size_t)n, 0 + (n - 1), my_memmove);
-  printf("----SRC - DEST : normal ----\n");
-  test_case2(av[1], (size_t)n, 0 + (n + 1), memmove);
-  test_case2(av[1], (size_t)n, 0 + (n + 1), my_memmove);
-
-  return (0);
+  
 }
