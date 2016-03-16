@@ -3,8 +3,10 @@
 	section .text
 
 strcasecmp:
-
 	xor	rdx, rdx
+	push	r13
+	push	r14
+	push	r15
 	mov	r13, 32
 	mov	r14, 65
 	mov	r15, 90
@@ -14,10 +16,6 @@ caseloop:
 	and	r8, 0xff
 	mov	r9, [rsi + rdx]
 	and	r9, 0xff
-	cmp     r8, 0
-        je      end
-        cmp     r9, 0
-        je      end
 
 str1_case:
 	xor	r10, r10
@@ -38,7 +36,11 @@ str2_case:
 	add	r11, r13
 	mov	r9, r11
 	
-check:	
+check:
+	cmp     r8, 0
+        je      end
+        cmp     r9, 0
+        je      end
 	cmp	r8, r9
 	jne	end
 	add	rdx, 1
@@ -47,5 +49,8 @@ check:
 end:
 	sub	r8, r9
 	mov	rax, r8
+	pop	r15
+	pop	r14
+	pop	r13
         ret
 	

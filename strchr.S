@@ -1,6 +1,5 @@
 
 	global	strchr
-
 	section	.text
 
 strchr:

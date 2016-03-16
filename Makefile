@@ -1,14 +1,20 @@
 
 NAME	=	libasm.so
 
-SRC	=	$(wildcard *.S)
-
-ZRC	=	memset.S	\
-		strlen.S	\
-		strcmp.S	\
+SRC	=	memset.S	\
+		memcpy.S	\
 		strchr.S	\
+		strcmp.S	\
+		strcspn.S	\
 		strncmp.S	\
-		memcpy.S
+		strlen.S	\
+		strpbrk.S	\
+		strstr.S	\
+		strcasecmp.S	\
+		memccpy.S	\
+		strncasecmp.S	\
+		memmove.S	
+
 
 OBJ	=	$(SRC:.S=.o)
 TEST	=	$(SRC:.S=.test)

@@ -4,15 +4,17 @@
 
 memcpy:
 	mov	rax, rdi
-
+	mov	r8, rdi
+	
 loop:
 	cmp	rdx, 0
 	je	end
 	dec	rdx
+	xor	rcx, rcx
 	mov	rcx, [rsi]
-	mov	byte [rdi], cl
+	mov	byte [r8], cl
 	inc	rsi
-	inc	rdi
+	inc	r8
 	jmp	loop
 	
 end:

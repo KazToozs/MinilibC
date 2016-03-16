@@ -5,10 +5,12 @@
 /* extern char	*my_strchr(const char *str, int c); */
 /* extern	void	*my_memset(void *s, int c, size_t n); */
 /* extern void	*my_memcpy(void *dest, const void *src, size_t n); */
+/* extern void	*my_memccpy(void *dest, const void *src, int c, size_t n); */
 /* int		my_strcmp(const char *s1, const char *s2); */
 extern void	*my_memmove(void *dest, const void *src, size_t n);
 /* extern int	my_strncmp(const char *s1, const char *s2, size_t n); */
-/* extern int	strcasecmp(const char *s1, const char *s2); */
+/* extern int	my_strcasecmp(const char *s1, const char *s2); */
+/* extern int	my_strncasecmp(const char *s1, const char *s2, size_t n); */
 /* extern char	*my_strstr(const char *haystack, const char *needle); */
 /* extern char	*my_strpbrk(const char *s, const char *accept); */
 /* extern size_t	my_strcspn(const char *s, const char *reject); */
@@ -86,8 +88,110 @@ extern void	*my_memmove(void *dest, const void *src, size_t n);
 /*     return (NULL); */
 /* } */
 
+/* void		print_str(char *str) */
+/* { */
+/*   --str; */
+/*   while (++(*str) != 0) */
+/*     write(1, str, 1); */
+/* } */
+
+char		*da_strcat(char *dest, char *src)
+{
+  int i = strlen(dest) - 3;
+  while (src[i] != '\0')
+    {
+      dest[i] = src[i];
+      i++;
+    }
+  return (dest);
+}
+
+void		test_case1(char *dest, char *src, size_t n)
+{
+  char		*str;
+  char		*str2;
+  char		*str3;
+  char		*str4;
+
+  str = strdup(dest);
+  str2 = strdup(src);
+  str3 = strdup(dest);
+  str4 = strdup(src);
+  printf("%s\n", memmove(str, str2, n));
+  printf("%s\n", my_memmove(str3, str4, n));
+}
+
+void		test_case2(char *dest, char *src, size_t n)
+{
+  char		*str;
+  char		*str2;
+  char		*str3;
+
+  char		*m_str;
+  char		*m_str2;
+  char		*m_str3;
+
+  printf("\n----TEST----\n");
+
+  str3 = malloc(100);
+  str = strdup(dest);
+  str2 = strdup(src);
+  str3 = strcpy(str3, str);
+  printf("pre_check: %s\n", str3);
+  str3 = da_strcat(str3, str2);
+  printf("pre_check2: %s\n", str3);
+
+  printf("----MINE----\n");
+  m_str3 = malloc(100);
+  m_str = strdup(dest);
+  m_str2 = strdup(src);
+  m_str3 = strcpy(m_str3, m_str);
+  printf("check: %s\n", m_str3);
+  m_str3 = da_strcat(m_str3, m_str2);
+  printf("check2: %s\n", m_str3);
+
+  printf("%s\n", memmove(str, str2, n));
+  printf("%s\n", my_memmove(m_str, m_str2, n));
+}
+
+void		test_case3(char *dest, char *src, size_t n)
+{
+  char		*str;
+  char		*str2;
+  char		*str3;
+
+  char		*m_str;
+  char		*m_str2;
+  char		*m_str3;
+
+  printf("\n----TEST3----\n");
+
+  str3 = malloc(100);
+  str = strdup(dest);
+  str2 = strdup(src);
+  str3 = strcpy(str3, str2);
+  printf("pre_check: %s\n", str3);
+  str3 = da_strcat(str3, str);
+  printf("pre_check2: %s\n", str3);
+
+  printf("----MINE----\n");
+  m_str3 = malloc(100);
+  m_str = strdup(dest);
+  m_str2 = strdup(src);
+  m_str3 = strcpy(m_str3, m_str2);
+  printf("check: %s\n", m_str3);
+  m_str3 = da_strcat(m_str3, m_str);
+  printf("check2: %s\n", m_str3);
+
+  printf("%s\n", memmove(str, str2, n));
+  printf("%s\n", my_memmove(m_str, m_str2, n));
+}
+
 int		main(int ac, char **av)
 {
-  printf("ret: %s\n", (char *)memmove(av[1], av[2], 5));
-  printf("ret: %s\n", (char *)my_memmove(av[1], av[2], 5));
+  int n = atoi(av[3]);
+  test_case1(av[1], av[2], (size_t)n);
+  test_case2(av[1], av[2], (size_t)n);
+  test_case3(av[1], av[2], (size_t)n);
+  return (0);
 }

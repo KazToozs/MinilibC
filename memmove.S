@@ -1,45 +1,71 @@
 
-	global	my_memmove
+	global	memmove
 	section	.text
-	extern	malloc
 
-my_memmove:
-	mov	rcx, [rdi]
-	mov	rdi, rdx
-	call	malloc
+memmove:
+	mov	r8, rdi
+	sub	r8, rsi
+	cmp	r8, 0
+	jl	less
+	jmp	normal
+
+less:
+	mov	r9, -1
+len:
+	add	r9, 1
+	cmp	byte [rdi + r9], 0
+	jne	len
+	neg	r8
+	cmp	r9, r8
+	jg	special
+	jmp	normal
+
+special:
 	xor	r8, r8
-	mov	r9, rax
-	xor	r11, r11
-	
-cpy_to_tmp:
-	cmp	rdx, r8
-	je	cpy_to_dest
-	cmp	byte [rsi], 0
-	je	cpy_to_dest
-	mov	r11, [rsi]	
-	mov	byte [r9], r11b 
-	add	r8, 1
+	mov	r8, rcx		;make sure we copy the right ammount
+	mov	r9, rdi
+	mov	r10, rsi	;keep markers on the start of each param
+skip_to_end:
+	cmp	r8, 0
+	je	start_cpy
+	dec	r8
 	inc	r9
+	inc	r10
+	jmp	skip_to_end
+start_cpy:
+	cmp	r10, rsi
+	je	special_end
+	cmp	rdx, 0
+	je	special_end
+	dec	rdx
+	xor	rcx, rcx
+	mov	rcx, [r10]
+	mov	byte[r9], r10b
+	dec	r9
+	dec	r10
+	jmp	start_cpy
+
+normal:
+	mov	rax, rdi
+	mov	r8, rdi
+
+n_loop:
+	cmp	rdx, 0
+	je	end
+	dec	rdx
+	xor	rcx, rcx
+	mov	rcx, [rsi]
+	mov	byte [r8], cl
 	inc	rsi
-	jmp	cpy_to_tmp
-
-cpy_to_dest:
-	mov	r9, rcx
-	xor	r8, r8
-cpy_to_dest_loop:	
-	cmp	byte [r9], 0
-	je	end
-	cmp	rdx, r8
-	je	end
-	mov	r11, [rax]
-	mov	byte [r9], r11b
-	add	r8, 1
-	inc	r9
-	inc	rax
-	jmp	cpy_to_dest_loop
-
-end:
-	xor	rax, rax
-	mov	rax, rcx
-	ret
+	inc	r8
+	jmp	n_loop
 	
+end:
+	ret
+
+special_end:
+	;; copy the final value, then return the pointer
+	mov	rcx, [rsi]
+	mov	byte [rdi], cl
+	mov	rax, rdi
+	ret
