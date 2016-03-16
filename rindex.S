@@ -1,24 +1,19 @@
  
-	global my_rindex
+	global 	rindex
 	section .text
 
-my_rindex:
+rindex:
 	xor	rdx, rdx
 
 loop:
-	cmp	byte [rdi], 0
-	je 	ret
 	cmp	byte [rdi], sil
 	cmove	rdx, rdi
+	cmp	byte [rdi], 0
+	je 	ret
 	inc	rdi
 	jmp	loop
 
 ret:
-	cmp	rdx, 0
-	je	end
 	mov	rax, rdx
 	ret
 
-end:
-	xor	rax, rax
-	ret

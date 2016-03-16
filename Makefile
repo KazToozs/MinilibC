@@ -1,20 +1,22 @@
 
 NAME	=	libasm.so
 
-SRC	=	memset.S	\
-		memcpy.S	\
-		strchr.S	\
-		strcmp.S	\
-		strcspn.S	\
-		strncmp.S	\
-		strlen.S	\
-		strpbrk.S	\
-		strstr.S	\
-		strcasecmp.S	\
-		memccpy.S	\
-		strncasecmp.S	\
-		memmove.S	\
-		rindex.S	\
+SRC	=	memset.S		\
+		memcpy.S		\
+		strchr.S		\
+		strcmp.S		\
+		strcspn.S		\
+		strncmp.S		\
+		strlen.S		\
+		strpbrk.S		\
+		strstr.S		\
+		strcasecmp.S		\
+		bonus/memccpy.S		\
+		bonus/strncasecmp.S	\
+		bonus/strrchr.S		\
+		bonus/index.S		\
+		memmove.S		\
+		rindex.S
 
 OBJ	=	$(SRC:.S=.o)
 TEST	=	$(SRC:.S=.test)
