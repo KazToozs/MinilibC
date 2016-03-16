@@ -13,8 +13,8 @@ SRC	=	memset.S	\
 		strcasecmp.S	\
 		memccpy.S	\
 		strncasecmp.S	\
-		memmove.S	
-
+		memmove.S	\
+		rindex.S	\
 
 OBJ	=	$(SRC:.S=.o)
 TEST	=	$(SRC:.S=.test)
