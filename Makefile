@@ -27,7 +27,7 @@ CC	=	gcc
 
 CFLAGS	=	
 
-LDFLAGS	=	-shared
+LDFLAGS	=	-shared -fPIC
 
 
 all:		$(NAME)
